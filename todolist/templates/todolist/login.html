@@ -1,0 +1,54 @@
+{% extends "todolist/base.html" %}
+{% block content %}
+<div class="p-4 my-3 bg-info text-white">
+  <h1>Hello there!</h1>
+  <h2>To-do Listy is an application that lets you
+  create and manage your day-to-day tasks.
+  </h2>
+  <h3>Login to use the services!</h3>
+  <h4>(Or Sign up if you don't have an account)</h4>
+</div>
+<div class="p-4 my-3 mx-auto w-50 border border-info rounded-sm">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link {%if login%}active{%endif%}" href="{% url 'login' %}">Login</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {%if not login%}active{%endif%}" href="{% url 'sign_up' %}">Sign Up</a>
+    </li>
+  </ul>
+  {% if login %}
+  <div class="p-4 my-3">
+    <form>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Email</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your email id">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Password</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+      </div>
+    </form>
+    <button type="button" class="btn btn-primary">Login</button>
+  </div>
+  {% else %}
+  <div class="p-4 my-3">
+    <form>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Full Name</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your full name">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Email</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your email id">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Password</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+      </div>
+    </form>
+    <button type="button" class="btn btn-primary">Sign Up</button>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
