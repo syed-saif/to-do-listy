@@ -1,5 +1,9 @@
 {% extends "todolist/base.html" %}
+{% load static %}
 {% block content %}
+<script type="text/javascript">
+  var login = `{{login}}`
+</script>
 <div class="p-4 my-3 bg-info text-white">
   <h1>Hello there!</h1>
   <h2>To-do Listy is an application that lets you
@@ -19,36 +23,38 @@
   </ul>
   {% if login %}
   <div class="p-4 my-3">
-    <form>
+    <form id ="form" method="post" action="/">
       <div class="form-group">
-        <label for="formGroupExampleInput">Email</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your email id">
+        <label for="email">Email</label>
+        <input type="text" class="form-control input"  placeholder="Your email id">
       </div>
       <div class="form-group">
-        <label for="formGroupExampleInput2">Password</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+        <label for="password">Password</label>
+        <input type="password" class="form-control input"  placeholder="Password">
       </div>
+      <button id="submit_btn" type="button" class="btn btn-primary">Login</button>
     </form>
-    <button type="button" class="btn btn-primary">Login</button>
   </div>
   {% else %}
   <div class="p-4 my-3">
-    <form>
+    <form id="form" method="post" action="/">
       <div class="form-group">
-        <label for="formGroupExampleInput">Full Name</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your full name">
+        <label for="fullname">Full Name</label>
+        <input type="text" class="form-control input" placeholder="Your full name">
       </div>
       <div class="form-group">
-        <label for="formGroupExampleInput">Email</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your email id">
+        <label for="email">Email</label>
+        <input type="text" class="form-control input"  placeholder="Your email id">
       </div>
       <div class="form-group">
-        <label for="formGroupExampleInput2">Password</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+        <label for="password">Password</label>
+        <input type="password" class="form-control input" placeholder="Password">
       </div>
+      <button id="submit_btn" type="button" class="btn btn-primary">Sign Up</button>
     </form>
-    <button type="button" class="btn btn-primary">Sign Up</button>
   </div>
   {% endif %}
 </div>
+
+<script type="text/javascript" src="{% static 'todolist/scripts/login_or_sign_up.js'%}"></script>
 {% endblock content %}
