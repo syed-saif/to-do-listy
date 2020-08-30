@@ -1,4 +1,39 @@
 {% extends "todolist/base.html" %}
 {% block content %}
-<h1>inherited html</h1>
+<div class="p-4 my-4 text-black">
+  <h2>Welcome, User!</h2>
+  <div class="p-4 my-5 mx-auto w-80 border border-info rounded-sm">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link {%if not view%}active{%endif%}" href="/">All Tasks</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {%if view%}active{%endif%}" href="/?view=completed_tasks">Completed Tasks</a>
+      </li>
+    </ul>
+    {%if not view%}
+      <div class="container overflow-auto" style="max-height: 500px;">
+        {% for i in tasks %}
+        <div class="card my-3 mx-1 text-white bg-primary mb-3 " id="{{i.id}}">
+          <div class="card-header">{{i.title}}</div>
+          <div class="card-body">
+            <p class="card-text">{{i.body}}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {%else%}
+    <div class="container overflow-auto" style="max-height: 500px;">
+      {% for i in tasks %}
+      <div class="card my-3 mx-1 text-white bg-primary mb-3 " id="{{i.id}}">
+        <div class="card-header">{{i.title}}</div>
+        <div class="card-body">
+          <p class="card-text">{{i.body}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {%endif%}
+  </div>
+</div>
 {% endblock content%}
