@@ -1,9 +1,7 @@
 {% extends "todolist/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
-<script type="text/javascript">
-  var login = `{{login}}`
-</script>
 <div class="p-4 my-3 bg-info text-white">
   <h1>Hello there!</h1>
   <h2>To-do Listy is an application that lets you
@@ -24,33 +22,28 @@
   {% if login %}
   <div class="p-4 my-3">
     <form id ="form" method="post" action="/">
+      {% csrf_token %}
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control input"  placeholder="Your email id">
+        <label for="username">Username</label>
+        <input type="text" class="form-control input"  placeholder="Enter Your Username">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control input"  placeholder="Password">
+        <input type="password" class="form-control input"  placeholder="Enter your password">
       </div>
       <button id="submit_btn" type="button" class="btn btn-primary">Login</button>
     </form>
   </div>
   {% else %}
-  <div class="p-4 my-3">
-    <form id="form" method="post" action="/">
-      <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input type="text" class="form-control input" placeholder="Your full name">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control input"  placeholder="Your email id">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control input" placeholder="Password">
-      </div>
-      <button id="submit_btn" type="button" class="btn btn-primary">Sign Up</button>
+  <div class="p-4 my-3 overflow-auto" style="max-height: 350px;">
+    <form id="form" method="post">
+      {% csrf_token %}
+          <fieldset class="form-group">
+                {{ form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Sign Up</button>
+          </div>
     </form>
   </div>
   {% endif %}

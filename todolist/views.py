@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Tasks
+from .forms import UserRegisterForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -28,4 +30,14 @@ def sign_up(req):
     ctx = {'title':'To-Do Listy-Login/Sign-up',
             'login':False
     }
+    if req.method == 'POST':
+        form = UserRegisterForm(req.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(req, f'Account created for {username}!')
+            return redirect('home')
+    else:
+        form = UserRegisterForm()
+    ctx['form'] = form
     return render(req, 'todolist/login.html', context = ctx)
