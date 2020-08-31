@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Tasks
 from .forms import UserRegisterForm
-
-# Create your views here.
 from django.http import HttpResponse
 
 #a helper function that returns the task_set for a given user
@@ -16,6 +14,7 @@ def getTaskSet(user, view_ct):
     else:
         tasks = tasks.filter(completed=False)
     return tasks
+
 
 @login_required
 def home(req):
@@ -29,8 +28,16 @@ def home(req):
         }
     return render(req, 'todolist/home.html', context = ctx)
 
+
 @login_required
 def add_task(req):
+    if req.method == 'POST':
+        title, body = req.POST.get('title'), req.POST.get('content')
+        new_task = user.tasks_set.create(title=title, body=body)
+        new_task.save()
+        messages.success(req, 'Task added successfully!')
+        return redirect('home')
+
     user = req.user
     view_ct = req.GET.get('view', None)
     tasks = getTaskSet(user, view_ct)
@@ -39,14 +46,40 @@ def add_task(req):
             'view':view_ct,
             'tasks':tasks
         }
-    if req.method == 'POST':
-        title, body = req.POST.get('title'), req.POST.get('content')
-        new_task = user.tasks_set.create(title=title, body=body)
-        new_task.save()
-        messages.success(req, 'Task added successfully!')
+
+    return render(req, 'todolist/add.html', context=ctx)
+
+
+@login_required
+def change_task_state(req):
+    if req.method == 'GET':
         return redirect('home')
-    else:
-        return render(req, 'todolist/add.html', context=ctx)
+    elif req.method == 'POST':
+        user = req.user
+        id = req.POST.get('task_id')
+        task = user.tasks_set.get(pk = id)
+        if req.POST.get('action') == 'completed':
+             task.completed = True
+             messages.success(req, "Task added to 'Completed tasks'!")
+        else:
+            task.completed = False
+            messages.success(req, "The completed task has now been reverted back to 'All tasks'!")
+        task.save()
+        return redirect('home')
+
+
+@login_required
+def delete(req):
+    if req.method == 'GET':
+        return redirect('home')
+    elif req.method == 'POST':
+        user = req.user
+        id = req.POST.get('task_id')
+        task = user.tasks_set.get(pk = id)
+        task.delete()
+        messages.success(req, "Task deleted successfully!")
+        return redirect('home')
+
 
 def sign_up(req):
     ctx = {
