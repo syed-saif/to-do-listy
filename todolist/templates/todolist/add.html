@@ -1,0 +1,22 @@
+{% extends 'todolist/home.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block add %}
+<div class="p-4 my-4 mx-auto w-70 border border-info rounded-sm">
+  <div class="alert alert-primary" role="alert">
+    <strong>Create a new task:</strong>
+  </div>
+  <form class="form-group" action="/add" method="post" id="addForm">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">Task Title</label>
+      <input name="title" type="text" class="form-control" placeholder="Enter Your Task Title" required>
+    </div>
+    <div class="form-group">
+      <label for="content">Task Description</label>
+      <textarea class="form-control" name="content" form="addForm" rows="3" placeholder="Body of your task" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %}

@@ -21,17 +21,14 @@
   </ul>
   {% if login %}
   <div class="p-4 my-3">
-    <form id ="form" method="post" action="/">
+    <form id ="form" method="post">
       {% csrf_token %}
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control input"  placeholder="Enter Your Username">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control input"  placeholder="Enter your password">
-      </div>
-      <button id="submit_btn" type="button" class="btn btn-primary">Login</button>
+        <fieldset class="form-group">
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Login</button>
+        </div>
     </form>
   </div>
   {% else %}

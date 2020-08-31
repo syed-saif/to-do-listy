@@ -1,0 +1,12 @@
+{% extends "todolist/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container my-3 p-1">
+  <h2>You have been logged out</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'login' %}">Log In Again</a>
+        </small>
+    </div>
+</div>
+{% endblock %}

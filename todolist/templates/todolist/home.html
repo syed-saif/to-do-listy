@@ -1,8 +1,10 @@
 {% extends "todolist/base.html" %}
 {% block content %}
 <div class="p-4 my-4 text-black">
-  <h2>Welcome, User!</h2>
-  <div class="p-4 my-5 mx-auto w-80 border border-info rounded-sm">
+  <h2>Welcome, {{user.username}}!</h2>
+  {% block add %}
+  {% endblock %}
+  <div class="p-4 my-4 mx-auto w-70 border border-info rounded-sm" style="height:550px">
     <ul class="nav nav-tabs">
       <li class="nav-item">
         <a class="nav-link {%if not view%}active{%endif%}" href="/">All Tasks</a>
@@ -13,6 +15,13 @@
     </ul>
     {%if not view%}
       <div class="container overflow-auto" style="max-height: 500px;">
+        {% if not tasks %}
+        <div class="container my-3 mx-1">
+          <div class="alert alert-info" role="alert">
+              <strong>No tasks created yet! Add a task to get started.</strong>
+          </div>
+        </div>
+        {% endif %}
         {% for i in tasks %}
         <div class="card my-3 mx-1 text-white bg-primary mb-3 " id="{{i.id}}">
           <div class="card-header">{{i.title}}</div>
@@ -24,6 +33,14 @@
       </div>
     {%else%}
     <div class="container overflow-auto" style="max-height: 500px;">
+      {% if not tasks %}
+        <div class="container my-3 mx-1">
+          <div class="alert alert-info" role="alert">
+              <strong>No tasks completed yet! Check the 'completed' check box to
+                completed a task. Or add a task if you don't have any.</strong>
+          </div>
+        </div>
+      {% endif %}
       {% for i in tasks %}
       <div class="card my-3 mx-1 text-white bg-primary mb-3 " id="{{i.id}}">
         <div class="card-header">{{i.title}}</div>
@@ -34,6 +51,20 @@
       {% endfor %}
     </div>
     {%endif%}
+  </div>
+  <div class="card text-white bg-dark mx-auto my-3 d-inline-block">
+    <strong><div class="card-header">Create a task</div></strong>
+    <div class="card-body">
+      <p class="card-text">Create a new task to add it to the checklist above.</p>
+      <a href="/add{%if view%}?view=completed_tasks{%endif%}"><button type="button" class="btn btn-success btn-lg btn-block">Add Task</button></a>
+    </div>
+  </div>
+  <div class="card text-white bg-dark mx-auto my-3 d-inline-block" >
+    <strong><div class="card-header">Log Out</div></strong>
+    <div class="card-body">
+      <p class="card-text">Log out of your current session.</p>
+      <a href="/logout"><button type="button" class="btn btn-danger btn-lg btn-block">Log Out</button></a>
+    </div>
   </div>
 </div>
 {% endblock content%}
