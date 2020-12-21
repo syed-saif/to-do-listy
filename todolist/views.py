@@ -31,6 +31,8 @@ def home(req):
 
 @login_required
 def add_task(req):
+    user = req.user
+    
     if req.method == 'POST':
         title, body = req.POST.get('title'), req.POST.get('content')
         new_task = user.tasks_set.create(title=title, body=body)
@@ -38,7 +40,6 @@ def add_task(req):
         messages.success(req, 'Task added successfully!')
         return redirect('home')
 
-    user = req.user
     view_ct = req.GET.get('view', None)
     tasks = getTaskSet(user, view_ct)
     ctx = {
