@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="p-4 my-3 bg-info text-white">
+<div class="p-4 my-3 bg-dark text-white">
   <h1>Hello there!</h1>
   <h2>To-do Listy is an application that lets you
   create and manage your day-to-day tasks.
@@ -10,7 +10,7 @@
   <h3>Login to use the services!</h3>
   <h4>(Or Sign up if you don't have an account)</h4>
 </div>
-<div class="p-4 my-3 mx-auto w-50 border border-info rounded-sm">
+<div class="p-4 my-3 mx-auto w-50 border border-dark rounded-sm">
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link {%if login%}active{%endif%}" href="{% url 'login' %}">Login</a>
@@ -27,7 +27,7 @@
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Login</button>
+            <button class="btn btn-outline-dark" type="submit">Login</button>
         </div>
     </form>
   </div>
@@ -39,7 +39,7 @@
                 {{ form|crispy }}
           </fieldset>
           <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Sign Up</button>
+              <button class="btn btn-outline-dark" type="submit">Sign Up</button>
           </div>
     </form>
   </div>
