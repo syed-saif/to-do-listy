@@ -26,3 +26,4 @@ python3 manage.py runserver
 ## P.S
 This was my first Django app (:P). This project was done in 2 days or so, as I quickly wanted to go through all that Django has to offer. And I have to admit, using Django saved a **ton** of time, as it already had the common bells and whistles built in. The idea of an ORM is the best part as, we don't have to write those SQL queries. Overall this was a fun project, as I learned Django and got to use Bootstrap properly this time.
 Do star the repo :P 
+ 
